@@ -66,6 +66,7 @@ for feature in data["features"]:
 
             subzone_data.append({
                 "Subzone Name": point_name,
+                "Main Subzone Name": subzone_name,  # Add main subzone name for merging
                 "Latitude": point.y,
                 "Longitude": point.x
             })
@@ -78,3 +79,21 @@ print("Map saved as subzone_random_points_map.html")
 df = pd.DataFrame(subzone_data)
 df.to_excel("subzone_random_points_data.xlsx", index=False)
 print("Data exported to subzone_random_points_data.xlsx")
+
+# Load the Excel file with population data
+population_df = pd.read_excel(r"C:\Users\Newbieshine\Desktop\SMT Project\SG_Population_Data_2024.xlsx")
+
+# Clean up and prepare the population and subzone data for merging
+population_df = population_df[['Subzone', 'Total']].rename(columns={'Subzone': 'Main Subzone Name', 'Total': 'Total Population'})
+population_df['Main Subzone Name'] = population_df['Main Subzone Name'].str.lower().str.strip()
+subzone_df = pd.DataFrame(subzone_data)
+subzone_df['Main Subzone Name'] = subzone_df['Main Subzone Name'].str.lower().str.strip()
+
+# Merge the subzone data with the population data using the main subzone name
+merged_df = pd.merge(subzone_df, population_df, on='Main Subzone Name', how='left')
+
+# Export the merged data to a new Excel file or CSV
+merged_df.to_excel("merged_random_subzone_population.xlsx", index=False)
+# merged_df.to_csv("merged_subzone_population.csv", index=False)
+
+print("Merged data exported as merged_random_subzone_population.xlsx and merged_random_subzone_population.csv")
