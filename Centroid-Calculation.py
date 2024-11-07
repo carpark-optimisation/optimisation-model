@@ -61,3 +61,35 @@ print("Map saved as subzone_centroids_map.html")
 df = pd.DataFrame(subzone_data)
 df.to_excel("subzone_centroids_data.xlsx", index=False)
 print("Data exported to subzone_centroids_data.xlsx")
+
+# Load the Excel file with population data
+population_df = pd.read_excel(r"C:\Users\Newbieshine\Desktop\SMT Project\SG_Population_Data_2024.xlsx")
+
+# Clean up and prepare the population and subzone data for merging
+population_df = population_df[['Subzone', 'Total']].rename(columns={'Subzone': 'Subzone Name', 'Total': 'Total Population'})
+population_df['Subzone Name'] = population_df['Subzone Name'].str.lower().str.strip()
+subzone_df = pd.DataFrame(subzone_data)
+subzone_df['Subzone Name'] = subzone_df['Subzone Name'].str.lower().str.strip()
+
+
+# # Print unique subzone names for manual comparison
+# print("Unique subzone names in the population DataFrame:")
+# print(population_df['Subzone Name'].sort_values().unique())
+# print("\nUnique subzone names in the subzone DataFrame:")
+# print(subzone_df['Subzone Name'].sort_values().unique())
+#
+# #print the head of the population data and subzone data
+# print("Head of the population DataFrame:", population_df.head())
+# print("Head of the subzone DataFrame:", subzone_df.head())
+#
+# print("Column names in the population DataFrame:", population_df.columns)
+# print("Column names in the subzone DataFrame:", subzone_df.columns)
+
+# Merge the centroid data with the population data
+merged_df = pd.merge(subzone_df, population_df, on='Subzone Name', how='left')
+
+# Export the merged data to a new Excel file or CSV
+merged_df.to_excel("merged_subzone_population.xlsx", index=False)
+# merged_df.to_csv("merged_subzone_population.csv", index=False)
+
+print("Merged data exported as merged_subzone_population.xlsx and merged_subzone_population.csv")
