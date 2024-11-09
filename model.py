@@ -13,19 +13,19 @@ from itertools import combinations
 # })
 
 # Read subzone data from subzone_centroids_data.xlsx
-subzones_data = pd.read_excel('subzone_centroids_data.xlsx')
+subzones_data = pd.read_excel('subzone_random_points_data.xlsx')
 subzones_data.rename(columns={
     'Subzone Name': 'Subzone',
-    'Centroid Latitude': 'Latitude',
-    'Centroid Longitude': 'Longitude'
+    'Latitude': 'Latitude',
+    'Longitude': 'Longitude'
 }, inplace=True)
 subzones_data['Population'] = 1000
 
 
 
 max_capacity = 70000000  # Maximum capacity per carpark
-d_max = 5            # Maximum allowable distance for coverage (in km)
-S = 0.5              # Minimum distance between carparks (in km)
+d_max = 0.5            # Maximum allowable distance for coverage (in km)
+S = 0              # Minimum distance between carparks (in km)
 
 # Function to calculate Euclidean distance (approximation) between two points (lat, lon) in kilometers
 def euclidean_distance(lat1, lon1, lat2, lon2):
@@ -127,3 +127,7 @@ if uncovered_subzones:
     print("Adjust 'd_max' or check subzone coordinates.")
 else:
     print("All subzones are included in at least one cluster.")
+
+# Output the results
+print(f"Status: {LpStatus[prob.status]}")
+print(f"Optimal number of carparks: {int(value(prob.objective))}\n")
