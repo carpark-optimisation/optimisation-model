@@ -36,7 +36,7 @@ for feature in data["features"]:
         # Add the subzone boundary and centroid marker to the map
         folium.GeoJson(
             feature["geometry"],
-            style_function=lambda x: {'fillColor': 'blue', 'color': 'blue', 'weight': 1, 'fillOpacity': 0.2},
+            style_function=lambda x: {'fillColor': 'blue', 'color': 'blue', 'weight': 2, 'fillOpacity': 0.2},
             tooltip=subzone_name
         ).add_to(m)
 
@@ -89,7 +89,7 @@ subzone_df['Subzone Name'] = subzone_df['Subzone Name'].str.lower().str.strip()
 merged_df = pd.merge(subzone_df, population_df, on='Subzone Name', how='left')
 
 # Export the merged data to a new Excel file or CSV
-merged_df.to_excel("merged_subzone_population.xlsx", index=False)
+merged_df.to_excel("merged_single_centroid_subzone_population.xlsx", index=False)
 # merged_df.to_csv("merged_subzone_population.csv", index=False)
 
-print("Merged data exported as merged_subzone_population.xlsx and merged_subzone_population.csv")
+print("Merged data exported as merged_single_centroid_subzone_population.xlsx and merged_subzone_population.csv")

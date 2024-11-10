@@ -62,7 +62,7 @@ for feature in data["features"]:
         ).add_to(m)
 
         # Generate Poisson disk points within the subzone
-        points = generate_poisson_disk_points(polygon, min_distance=0.005, num_points=5)
+        points = generate_poisson_disk_points(polygon, min_distance=0.003, num_points=5)
 
         for i, point in enumerate(points):
             # Add each point to the map and subzone data
