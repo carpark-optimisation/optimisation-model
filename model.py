@@ -16,11 +16,11 @@ def optimize_carparks_centroids():
     try:
         # Get d_max from request
         data = request.get_json()
-        d_max = float(data.get('d_max', 0.5))  # Default to 0.5 if not provided
+        d_max = float(data.get('d_max', 0.5))
         
         # Constants
-        max_capacity = 30000000  # Maximum capacity per carpark
-        S = 0                 # Minimum distance between carparks (in km)
+        max_capacity = 30000000     # Maximum capacity per carpark (see "Limitations" in report)
+        S = 0                       # Minimum distance between carparks (in km)
 
         # Read subzone data
         subzones_data = pd.read_excel('Starting_point_generation_codes/starting_points_results/subzone_centroids_data.xlsx')
@@ -85,14 +85,11 @@ def optimize_carparks_centroids():
             if distance < S:
                 prob += X[c1] + X[c2] <= 1, f"Spread_{c1}_{c2}"
 
-        # Solve the problem
         prob.solve()
 
-        # Print statements for checking (retained as requested)
         print(f"Status: {LpStatus[prob.status]}")
         print(f"Optimal number of carparks: {int(value(prob.objective))}\n")
 
-        # Prepare results in the specified format
         results = []
         for c in clusters.keys():
             if X[c].varValue == 1:
@@ -104,7 +101,7 @@ def optimize_carparks_centroids():
                 centroid_lat = lat_sum / n
                 centroid_lon = lon_sum / n
 
-                # Print statements for checking (retained as requested)
+                # Print statements for checking
                 print(f"Carpark placed at cluster centered at {c}")
                 print(f"  Centroid Latitude: {centroid_lat:.6f}, Longitude: {centroid_lon:.6f}")
                 print(f"  Covers subzones: {', '.join(covered_subzones)}")
@@ -112,7 +109,7 @@ def optimize_carparks_centroids():
 
                 # Add result to list
                 results.append({
-                    "planning_area_name": c,  # Using cluster center subzone as planning area name
+                    "planning_area_name": c,
                     "latitude": float(centroid_lat),
                     "longitude": float(centroid_lon),
                     "covers_subzones": covered_subzones
@@ -143,11 +140,11 @@ def optimize_carparks_poisson():
     try:
         # Get d_max from request
         data = request.get_json()
-        d_max = float(data.get('d_max', 0.5))  # Default to 0.5 if not provided
+        d_max = float(data.get('d_max', 0.5))
         
         # Constants
-        max_capacity = 30000000  # Maximum capacity per carpark
-        S = 0                 # Minimum distance between carparks (in km)
+        max_capacity = 30000000     # Maximum capacity per carpark (see "Limitations" in report)
+        S = 0                       # Minimum distance between carparks (in km)
 
         # Read subzone data
         subzones_data = pd.read_excel('Starting_point_generation_codes/starting_points_results/subzone_poisson_points_data.xlsx')
@@ -215,11 +212,9 @@ def optimize_carparks_poisson():
         # Solve the problem
         prob.solve()
 
-        # Print statements for checking (retained as requested)
         print(f"Status: {LpStatus[prob.status]}")
         print(f"Optimal number of carparks: {int(value(prob.objective))}\n")
 
-        # Prepare results in the specified format
         results = []
         for c in clusters.keys():
             if X[c].varValue == 1:
@@ -231,15 +226,13 @@ def optimize_carparks_poisson():
                 centroid_lat = lat_sum / n
                 centroid_lon = lon_sum / n
 
-                # Print statements for checking (retained as requested)
                 print(f"Carpark placed at cluster centered at {c}")
                 print(f"  Centroid Latitude: {centroid_lat:.6f}, Longitude: {centroid_lon:.6f}")
                 print(f"  Covers subzones: {', '.join(covered_subzones)}")
                 print(f"  Total Population Covered: {sum([population[s] for s in covered_subzones])}\n")
 
-                # Add result to list
                 results.append({
-                    "planning_area_name": c,  # Using cluster center subzone as planning area name
+                    "planning_area_name": c,
                     "latitude": float(centroid_lat),
                     "longitude": float(centroid_lon),
                     "covers_subzones": covered_subzones
@@ -270,11 +263,11 @@ def optimize_carparks_random():
     try:
         # Get d_max from request
         data = request.get_json()
-        d_max = float(data.get('d_max', 0.5))  # Default to 0.5 if not provided
+        d_max = float(data.get('d_max', 0.5))
         
         # Constants
-        max_capacity = 30000000  # Maximum capacity per carpark
-        S = 0                 # Minimum distance between carparks (in km)
+        max_capacity = 30000000     # Maximum capacity per carpark (see "Limitations" in report)
+        S = 0                       # Minimum distance between carparks (in km)
 
         # Read subzone data
         subzones_data = pd.read_excel('Starting_point_generation_codes/starting_points_results/subzone_random_points_data.xlsx')
@@ -342,11 +335,9 @@ def optimize_carparks_random():
         # Solve the problem
         prob.solve()
 
-        # Print statements for checking (retained as requested)
         print(f"Status: {LpStatus[prob.status]}")
         print(f"Optimal number of carparks: {int(value(prob.objective))}\n")
 
-        # Prepare results in the specified format
         results = []
         for c in clusters.keys():
             if X[c].varValue == 1:
@@ -358,15 +349,13 @@ def optimize_carparks_random():
                 centroid_lat = lat_sum / n
                 centroid_lon = lon_sum / n
 
-                # Print statements for checking (retained as requested)
                 print(f"Carpark placed at cluster centered at {c}")
                 print(f"  Centroid Latitude: {centroid_lat:.6f}, Longitude: {centroid_lon:.6f}")
                 print(f"  Covers subzones: {', '.join(covered_subzones)}")
                 print(f"  Total Population Covered: {sum([population[s] for s in covered_subzones])}\n")
 
-                # Add result to list
                 results.append({
-                    "planning_area_name": c,  # Using cluster center subzone as planning area name
+                    "planning_area_name": c,
                     "latitude": float(centroid_lat),
                     "longitude": float(centroid_lon),
                     "covers_subzones": covered_subzones
