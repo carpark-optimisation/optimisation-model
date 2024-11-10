@@ -23,7 +23,7 @@ def optimize_carparks_centroids():
         S = 0                 # Minimum distance between carparks (in km)
 
         # Read subzone data
-        subzones_data = pd.read_excel('subzone_centroids_data.xlsx')
+        subzones_data = pd.read_excel('Starting_point_generation_codes/starting_points_results/subzone_centroids_data.xlsx')
         subzones_data.rename(columns={
             'Subzone Name': 'Subzone',
             'Latitude': 'Latitude',
@@ -150,7 +150,7 @@ def optimize_carparks_poisson():
         S = 0                 # Minimum distance between carparks (in km)
 
         # Read subzone data
-        subzones_data = pd.read_excel('subzone_poisson_points_data.xlsx')
+        subzones_data = pd.read_excel('Starting_point_generation_codes/starting_points_results/subzone_poisson_points_data.xlsx')
         subzones_data.rename(columns={
             'Subzone Name': 'Subzone',
             'Latitude': 'Latitude',
@@ -277,7 +277,7 @@ def optimize_carparks_random():
         S = 0                 # Minimum distance between carparks (in km)
 
         # Read subzone data
-        subzones_data = pd.read_excel('subzone_random_points_data.xlsx')
+        subzones_data = pd.read_excel('Starting_point_generation_codes/starting_points_results/subzone_random_points_data.xlsx')
         subzones_data.rename(columns={
             'Subzone Name': 'Subzone',
             'Latitude': 'Latitude',

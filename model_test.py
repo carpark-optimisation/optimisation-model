@@ -13,8 +13,8 @@ from itertools import combinations
 # })
 
 # Read subzone data from one of the three files
-# subzones_data = pd.read_excel('subzone_centroids_data.xlsx')
-subzones_data = pd.read_excel('subzone_poisson_points_data.xlsx')
+subzones_data = pd.read_excel('Starting_point_generation_codes/starting_points_results/subzone_centroids_data.xlsx')
+# subzones_data = pd.read_excel('subzone_poisson_points_data.xlsx')
 # subzones_data = pd.read_excel('subzone_random_points_data.xlsx')
 subzones_data.rename(columns={
     'Subzone Name': 'Subzone',
