@@ -13,7 +13,7 @@ from itertools import combinations
 # })
 
 # Read subzone data from subzone_centroids_data.xlsx
-subzones_data = pd.read_excel('subzone_random_points_data.xlsx')
+subzones_data = pd.read_excel('subzone_poisson_points_data.xlsx')
 subzones_data.rename(columns={
     'Subzone Name': 'Subzone',
     'Latitude': 'Latitude',
@@ -23,7 +23,7 @@ subzones_data['Population'] = 1000
 
 
 
-max_capacity = 70000000  # Maximum capacity per carpark
+max_capacity = 30000  # Maximum capacity per carpark
 d_max = 0.5            # Maximum allowable distance for coverage (in km)
 S = 0              # Minimum distance between carparks (in km)
 
