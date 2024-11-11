@@ -1,7 +1,7 @@
 # Generating of Starting Points (before running of model)
 # Starting Point Generation Codes
 
-The `Starting_point_generation_codes` folder contains scripts used to generate initial points for subzones in Singapore. These points help facilitate car park placement analysis and population mapping.
+The `Starting_point_generation_codes` folder contains scripts used to generate initial points for subzones in Singapore. These points help facilitate car park placement model analysis.
 
 ## How to Run the Scripts
 
